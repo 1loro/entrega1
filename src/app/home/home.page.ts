@@ -30,9 +30,14 @@ export class HomePage {
   }
 
   validar() {
-    if (this.user.username.length != 0) {
-      if (this.user.password.length != 0) {
-        
+    if (!this.user.username || !this.user.password) {
+      this.mensaje = 'Por favor, complete todos los campos';
+      this.mostrarAlerta(this.mensaje);
+      return; 
+    }
+  
+    if (this.user.username === 'lorenzo') {
+      if (this.user.password === 'zapato') {
         this.mensaje = '';
         let navigationExtras: NavigationExtras = {
           state: {
@@ -41,22 +46,17 @@ export class HomePage {
           },
         };
         this.router.navigate(['/perfil'], navigationExtras).then(() => {
-          
           setTimeout(() => {
             window.location.reload();
           }, 1000);
         });
       } else {
-        
-        
-        this.mensaje = 'Contraseña vacia';
-        this.mostrarAlerta('Por favor, ingrese su contraseña');
+        this.mensaje = 'Contraseña incorrecta';
+        this.mostrarAlerta(this.mensaje);
       }
     } else {
-      
-      
-      this.mensaje = 'Usuario vacio';
-      this.mostrarAlerta('Por favor, ingrese su usuario');
+      this.mensaje = 'Usuario incorrecto';
+      this.mostrarAlerta(this.mensaje);
     }
   }
 }
