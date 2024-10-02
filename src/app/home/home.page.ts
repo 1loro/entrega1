@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular'; 
+import { AuthenticatorService } from './../Servicios/authenticator.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class HomePage {
   
-  constructor(private router: Router, private alertController: AlertController) {} 
+  constructor(private router: Router, private alertController: AlertController,  private auth: AuthenticatorService) {} 
 
   user = {
     username: '',
@@ -30,33 +31,31 @@ export class HomePage {
   }
 
   validar() {
-    if (!this.user.username || !this.user.password) {
-      this.mensaje = 'Por favor, complete todos los campos';
-      this.mostrarAlerta(this.mensaje);
-      return; 
+    if (this.user.username.length === 0) { // Verifica si el campo de usuario está vacío
+      this.mensaje = 'Usuario vacío';
+      this.mostrarAlerta('Por favor, ingrese su usuario');
+      return; // Salir de la función
     }
-  
-    if (this.user.username === 'lorenzo') {
-      if (this.user.password === 'zapato') {
-        this.mensaje = '';
-        let navigationExtras: NavigationExtras = {
-          state: {
-            username: this.user.username,
-            password: this.user.password,
-          },
-        };
-        this.router.navigate(['/perfil'], navigationExtras).then(() => {
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-        });
-      } else {
-        this.mensaje = 'Contraseña incorrecta';
-        this.mostrarAlerta(this.mensaje);
-      }
+
+    if (this.user.password.length === 0) { // Verifica si el campo de contraseña está vacío
+      this.mensaje = 'Contraseña vacía';
+      this.mostrarAlerta('Por favor, ingrese su contraseña');
+      return; // Salir de la función
+    }
+
+    if (this.auth.login(this.user.username, this.user.password)) { // Verifica las credenciales
+      this.mensaje = '';
+      let navigationExtras: NavigationExtras = {
+        state: {
+          username: this.user.username,
+          password: this.user.password,
+        },
+      };
+      this.router.navigate(['/perfil'], navigationExtras);
     } else {
-      this.mensaje = 'Usuario incorrecto';
-      this.mostrarAlerta(this.mensaje);
+      console.log('Credenciales erróneas');
+      this.mensaje = 'Credenciales erróneas';
+      this.mostrarAlerta('Credenciales erróneas');
     }
   }
 }

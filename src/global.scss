@@ -38,11 +38,11 @@
 
 // Estilo global para botones
 ion-button {
-  --color: #9473B5; 
-  --background: transparent;  
-  --background-activated: rgba(148, 115, 181, 0.1);  
-  --background-focused: rgba(148, 115, 181, 0.2);  
-  --background-hover: rgba(148, 115, 181, 0.1);  
+  --color: #9473B5;  // Color del texto del botón
+  --background: transparent;  // Fondo transparente
+  --background-activated: rgba(148, 115, 181, 0.1);  // Color de fondo cuando se presiona
+  --background-focused: rgba(148, 115, 181, 0.2);  // Color de fondo cuando está enfocado
+  --background-hover: rgba(148, 115, 181, 0.1);  // Color de fondo al pasar el mouse
 
   &.button-solid {
     --background: #9473B5;
@@ -53,9 +53,9 @@ ion-button {
   }
 }
 
-
+// Estilo para las alertas
 .alert-button-inner {
-  color: #9473B5 !important;  
+  color: #9473B5 !important;  // Asegura que se aplique el color
 }
 
 // Para iOS, necesitamos un selector más específico
@@ -63,6 +63,7 @@ ion-button {
   color: #9473B5 !important;
 }
 
+// Clase personalizada para botones que quieres que tengan el estilo completo
 .custom-button {
   --background: #9473B5;
   --color: white;

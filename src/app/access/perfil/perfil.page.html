@@ -1,31 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button
-  default-href="/home"
-  class="action-button custom-button2"
-  style="
-    --color: #5A2A9B; 
-  ">
-</ion-back-button>
-    </ion-buttons>
     <ion-title>Inicio</ion-title>
-
+    <ion-buttons slot="end"> 
+      <ion-button (click)="logout()"> 
+        <ion-icon name="log-out"></ion-icon> 
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
   <div class="home-container">
-    <ion-img #logoImg src="assets/img/1.gif" class="logo"></ion-img>
+    <ion-img src="assets/img/1.gif" class="logo"></ion-img>
     <h2 class="welcome-text">Bienvenido {{username}}</h2>
     
     <div class="location-inputs">
       <ion-item class="input-item">
         <ion-input class="input-bordered"  
-          placeholder="Ubicación actual" [(ngModel)]="ubicacionActual"></ion-input> 
+          placeholder="Ubicación actual" [(ngModel)]="ubicacionActual"></ion-input> <!-- Enlace a la variable -->
       </ion-item>
       <ion-item>
-        <ion-input class="input-bordered" placeholder="Ingrese destino" [(ngModel)]="destino"></ion-input>
+        <ion-input class="input-bordered" placeholder="Ingrese destino" [(ngModel)]="destino"></ion-input> <!-- Enlace a la variable -->
       </ion-item>
     </div>
 

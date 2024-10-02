@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ToastController, AnimationController } from '@ionic/angular';
+import { AuthenticatorService } from './../../Servicios/authenticator.service';
 
 @Component({
   selector: 'app-perfil',
@@ -17,7 +18,8 @@ export class PerfilPage implements OnInit, AfterViewInit {
     private router: Router,
     private alertController: AlertController,
     private toastController: ToastController,
-    private animationController: AnimationController
+    private animationController: AnimationController,
+    private auth: AuthenticatorService
   ) {
     const navegacion = this.router.getCurrentNavigation();
     const state = navegacion?.extras.state as {
@@ -50,14 +52,14 @@ export class PerfilPage implements OnInit, AfterViewInit {
     toast.present();
   }
 
-  buscarViajes() {
+   buscarViajes() {
     if (this.ubicacionActual.length === 0) {
       this.mostrarAlerta('Por favor, ingrese su ubicación actual');
     } else if (this.destino.length === 0) {
       this.mostrarAlerta('Por favor, ingrese su destino');
     } else {
-      this.animarLogo();
-      this.mostrarToast();    
+      this.mostrarToast();
+     this.animarLogo();
     }
   }
 
@@ -69,7 +71,7 @@ export class PerfilPage implements OnInit, AfterViewInit {
       return;
     }
 
-    
+    console.log('Gengar Gotcha!:', element);
 
     const animationA = this.animationController
       .create()
@@ -104,5 +106,10 @@ export class PerfilPage implements OnInit, AfterViewInit {
     await animationB.play();
 
     console.log('Gengar hizo todo lo que tenia que hacer:3');
+  }
+
+  logout() {
+    this.auth.logout(); 
+    this.router.navigate(['/home']); 
   }
 }
