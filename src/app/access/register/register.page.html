@@ -12,14 +12,14 @@
     <div class="location-inputs">
       <ion-item class="input-item">
         <ion-input class="input-bordered"  
-          placeholder="Nombre de usuario" [(ngModel)]="nombreUsuario"></ion-input> 
+          placeholder="Nombre de usuario" [(ngModel)]="user.username"></ion-input> 
       </ion-item>
       <ion-item>
-        <ion-input class="input-bordered" placeholder="Correo electronico" [(ngModel)]="correo"></ion-input> 
+        <ion-input class="input-bordered" placeholder="Correo electronico" [(ngModel)]="user.email"></ion-input> 
       </ion-item>
       <ion-item class="input-item">
         <ion-input class="input-bordered" type="password" 
-          placeholder="Ingrese su contraseña" [(ngModel)]="contrasena"></ion-input> 
+          placeholder="Ingrese su contraseña" [(ngModel)]="user.password"></ion-input> 
       </ion-item>
     </div>
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { StorageService } from 'src/app/Servicios/storage.service';
 
 @Component({
   selector: 'app-register',
@@ -7,12 +9,16 @@ import { AlertController, ToastController } from '@ionic/angular';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  nombreUsuario = ''; 
-  correo = '';       
-  contrasena = '';  
+  user = {
+    username: "",
+    email: "",
+    password: ""
+  } 
   constructor(
     private alertController: AlertController, 
     private toastController: ToastController,
+    private storage: StorageService, 
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -35,17 +41,9 @@ export class RegisterPage implements OnInit {
     await toast.present();
   }
 
-  async registrar() {
-    if (this.nombreUsuario.trim() === '') {
-      this.mostrarAlerta('Por favor, ingrese un nombre de usuario');
-    } else if (this.correo.trim() === '') {
-      this.mostrarAlerta('Por favor, ingrese un correo electrónico');
-    } else if (this.contrasena.trim() === '') {
-      this.mostrarAlerta('Por favor, ingrese una contraseña');
-    } else {
-      
-      this.mostrarToast('Usuario registrado con éxito');
-      
-    }
+  registrar() {
+    console.log(this.user)
+    this.storage.set(this.user.username, this.user);
+    this.router.navigate(['/home'])
   }
 }

@@ -30,20 +30,22 @@ export class HomePage {
     await alert.present();
   }
 
-  validar() {
-    if (this.user.username.length === 0) { // Verifica si el campo de usuario está vacío
+  async validar() {
+    if (this.user.username.length === 0) { 
       this.mensaje = 'Usuario vacío';
       this.mostrarAlerta('Por favor, ingrese su usuario');
-      return; // Salir de la función
+      return; 
     }
 
-    if (this.user.password.length === 0) { // Verifica si el campo de contraseña está vacío
+    if (this.user.password.length === 0) { 
       this.mensaje = 'Contraseña vacía';
       this.mostrarAlerta('Por favor, ingrese su contraseña');
-      return; // Salir de la función
+      return; 
     }
 
-    if (this.auth.login(this.user.username, this.user.password)) { // Verifica las credenciales
+    const isLoggedIn = await this.auth.loginBDD(this.user.username, this.user.password);
+    
+    if (isLoggedIn) { 
       this.mensaje = '';
       let navigationExtras: NavigationExtras = {
         state: {
@@ -53,8 +55,6 @@ export class HomePage {
       };
       this.router.navigate(['/perfil'], navigationExtras);
     } else {
-      console.log('Credenciales erróneas');
-      this.mensaje = 'Credenciales erróneas';
       this.mostrarAlerta('Credenciales erróneas');
     }
   }
